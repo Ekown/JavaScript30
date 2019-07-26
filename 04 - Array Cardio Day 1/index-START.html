@@ -31,29 +31,65 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    console.table(inventors.filter(inventor => {
+      return inventor.year >= 1500 && inventor.year < 1600;
+    }))
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    console.table(inventors.map(inventor => { 
+      return `${inventor.first} ${inventor.last}`; 
+    }));
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    console.table(inventors.sort((a, b) => {
+      return a.year - b.year;
+    }));
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    console.log('Inventors\' lifespan:', inventors.reduce((a, b) => {
+      return a + (b.passed - b.year);
+    }, 0), 'years');
 
     // 5. Sort the inventors by years lived
+    const inventorAges = inventors.map(inventor => { 
+      return inventor.passed - inventor.year 
+    }).sort((a, b) => {
+      return a - b;
+    });
+    console.table(inventorAges);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    const parisBoulevards = document.querySelectorAll('.mw-category a');
+    const mappedBlvds = [...parisBoulevards].map(blvd => {
+      return blvd.innerHTML;
+    }).filter(blvd => {
+      return blvd.includes('de');
+    });
+    console.table(mappedBlvds);
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortFirstName = people.map(person => {
+      return person.split(',')[0];
+    }).sort();
+    console.table(sortFirstName);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    console.table(data.reduce((instanceObj, current) => {
+      if (!instanceObj[current])
+        instanceObj[current] = 0;
 
+      instanceObj[current]++;
+      
+      return instanceObj;
+    }, {}));
   </script>
 </body>
 </html>
